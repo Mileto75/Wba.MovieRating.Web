@@ -16,6 +16,7 @@ namespace Wba.MovieRating.Web.Data
         public DbSet<Director> Directors { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<MovieActors> MovieActors { get; set; }
 
         public MovieDbContext(DbContextOptions options):base(options)
         {
@@ -26,7 +27,7 @@ namespace Wba.MovieRating.Web.Data
         {
             //configure movie table
             modelBuilder.Entity<Movie>()
-                .HasKey(m => m.MovieId);
+                .HasKey(m => m.Id);
             //movieproperties
             modelBuilder.Entity<Movie>()
                 .Property(m => m.Title)
@@ -49,14 +50,9 @@ namespace Wba.MovieRating.Web.Data
                 .Property(u => u.Username)
                 .HasMaxLength(150)
                 .IsRequired();
-                
-            
-
-
-
-
-
-
+            //configure composite key
+            modelBuilder.Entity<MovieActors>()
+                 .HasKey(ma => new { ma.ActorId, ma.MovieId });
             //eigen implementatie
             //fluent api configuration
             base.OnModelCreating(modelBuilder);
