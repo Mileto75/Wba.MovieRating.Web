@@ -22,11 +22,35 @@ namespace Wba.MovieRating.Web.Data
             //configure movie table
             modelBuilder.Entity<Movie>()
                 .HasKey(m => m.MovieId);
+            //movieproperties
+            modelBuilder.Entity<Movie>()
+                .Property(m => m.Title)
+                .IsRequired()
+                .HasMaxLength(200);
+            modelBuilder.Entity<Movie>()
+                .Property(m => m.ReleaseDate)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("GETDATE()");
+            //user table
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.Id);
+            modelBuilder.Entity<User>()
+                .Property(u => u.FirstName)
+                .HasMaxLength(150);
+            modelBuilder.Entity<User>()
+               .Property(u => u.LastName)
+               .HasMaxLength(150);
+            modelBuilder.Entity<User>()
+                .Property(u => u.Username)
+                .HasMaxLength(150)
+                .IsRequired();
                 
-                
-                
-                
-            
+
+
+
+
+
+
             //eigen implementatie
             //fluent api configuration
             base.OnModelCreating(modelBuilder);
