@@ -110,11 +110,15 @@ namespace Wba.MovieRating.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("MovieId");
+
                     b.Property<string>("Review");
 
                     b.Property<int>("Score");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Ratings");
                 });
@@ -149,6 +153,14 @@ namespace Wba.MovieRating.Web.Migrations
 
                     b.HasOne("Wba.MovieRating.Domain.Entities.Movie", "Movie")
                         .WithMany("Actors")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Wba.MovieRating.Domain.Entities.Rating", b =>
+                {
+                    b.HasOne("Wba.MovieRating.Domain.Entities.Movie", "Movie")
+                        .WithMany("Ratings")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

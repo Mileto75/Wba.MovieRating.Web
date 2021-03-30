@@ -10,8 +10,8 @@ using Wba.MovieRating.Web.Data;
 namespace Wba.MovieRating.Web.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20210325144137_ExtraEntities")]
-    partial class ExtraEntities
+    [Migration("20210330070648_startWeek8")]
+    partial class startWeek8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,7 +76,7 @@ namespace Wba.MovieRating.Web.Migrations
 
             modelBuilder.Entity("Wba.MovieRating.Domain.Entities.Movie", b =>
                 {
-                    b.Property<long>("MovieId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -88,9 +88,22 @@ namespace Wba.MovieRating.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.HasKey("MovieId");
+                    b.HasKey("Id");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Wba.MovieRating.Domain.Entities.MovieActors", b =>
+                {
+                    b.Property<long>("ActorId");
+
+                    b.Property<long>("MovieId");
+
+                    b.HasKey("ActorId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("MovieActors");
                 });
 
             modelBuilder.Entity("Wba.MovieRating.Domain.Entities.Rating", b =>
@@ -99,11 +112,15 @@ namespace Wba.MovieRating.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("MovieId");
+
                     b.Property<string>("Review");
 
                     b.Property<int>("Score");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Ratings");
                 });
@@ -127,6 +144,27 @@ namespace Wba.MovieRating.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Wba.MovieRating.Domain.Entities.MovieActors", b =>
+                {
+                    b.HasOne("Wba.MovieRating.Domain.Entities.Actor", "Actor")
+                        .WithMany("Movies")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Wba.MovieRating.Domain.Entities.Movie", "Movie")
+                        .WithMany("Actors")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Wba.MovieRating.Domain.Entities.Rating", b =>
+                {
+                    b.HasOne("Wba.MovieRating.Domain.Entities.Movie", "Movie")
+                        .WithMany("Ratings")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

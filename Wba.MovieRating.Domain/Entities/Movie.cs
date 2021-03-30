@@ -13,5 +13,6 @@ namespace Wba.MovieRating.Domain.Entities
         public string Title { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public ICollection<MovieActors> Actors { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
     }
 }

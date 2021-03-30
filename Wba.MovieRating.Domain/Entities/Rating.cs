@@ -13,5 +13,7 @@ namespace Wba.MovieRating.Domain.Entities
         [Range(1,5)]
         public int Score { get; set; }
         public string Review { get; set; }
+        public Movie Movie { get; set; }
+        public long MovieId { get; set; }
     }
 }

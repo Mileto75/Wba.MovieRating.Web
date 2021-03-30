@@ -50,11 +50,12 @@ namespace Wba.MovieRating.Web.Data
                 .Property(u => u.Username)
                 .HasMaxLength(150)
                 .IsRequired();
-            //configure composite key
+            
+            //configure composite key for movieActors
             modelBuilder.Entity<MovieActors>()
                  .HasKey(ma => new { ma.ActorId, ma.MovieId });
-            //eigen implementatie
-            //fluent api configuration
+            
+            //configure relation in fluent
             base.OnModelCreating(modelBuilder);
         }
     }
