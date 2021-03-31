@@ -59,7 +59,9 @@ namespace Wba.MovieRating.Web.Data
             //configure composite key MovieDirectors
             modelBuilder.Entity<MovieDirectors>()
                 .HasKey(md => new { md.DirectorId, md.MovieId });
-            //configure relation in fluent
+
+            //seeding NIET VERGETEN AANROEPEN
+            DataSeeder.Seed(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
     }
