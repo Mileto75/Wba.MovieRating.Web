@@ -17,6 +17,7 @@ namespace Wba.MovieRating.Web.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<MovieActors> MovieActors { get; set; }
+        public DbSet<MovieDirectors> MovieDirectors { get; set; }
 
         public MovieDbContext(DbContextOptions options):base(options)
         {
@@ -54,7 +55,10 @@ namespace Wba.MovieRating.Web.Data
             //configure composite key for movieActors
             modelBuilder.Entity<MovieActors>()
                  .HasKey(ma => new { ma.ActorId, ma.MovieId });
-            
+
+            //configure composite key MovieDirectors
+            modelBuilder.Entity<MovieDirectors>()
+                .HasKey(md => new { md.DirectorId, md.MovieId });
             //configure relation in fluent
             base.OnModelCreating(modelBuilder);
         }

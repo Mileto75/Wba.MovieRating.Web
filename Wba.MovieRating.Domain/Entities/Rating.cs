@@ -15,5 +15,7 @@ namespace Wba.MovieRating.Domain.Entities
         public string Review { get; set; }
         public Movie Movie { get; set; }
         public long MovieId { get; set; }
+        public User User { get; set; }//nav prop
+        public long UserId { get; set; }//foreign key in db: in app = unshadowed foreign key
     }
 }

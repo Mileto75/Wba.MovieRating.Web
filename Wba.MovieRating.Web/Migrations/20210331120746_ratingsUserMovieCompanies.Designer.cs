@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wba.MovieRating.Web.Data;
 
 namespace Wba.MovieRating.Web.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210331120746_ratingsUserMovieCompanies")]
+    partial class ratingsUserMovieCompanies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,19 +110,6 @@ namespace Wba.MovieRating.Web.Migrations
                     b.ToTable("MovieActors");
                 });
 
-            modelBuilder.Entity("Wba.MovieRating.Domain.Entities.MovieDirectors", b =>
-                {
-                    b.Property<long>("DirectorId");
-
-                    b.Property<long>("MovieId");
-
-                    b.HasKey("DirectorId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MovieDirectors");
-                });
-
             modelBuilder.Entity("Wba.MovieRating.Domain.Entities.Rating", b =>
                 {
                     b.Property<long>("Id")
@@ -168,7 +157,7 @@ namespace Wba.MovieRating.Web.Migrations
             modelBuilder.Entity("Wba.MovieRating.Domain.Entities.Movie", b =>
                 {
                     b.HasOne("Wba.MovieRating.Domain.Entities.Company", "Company")
-                        .WithMany("Movies")
+                        .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -182,19 +171,6 @@ namespace Wba.MovieRating.Web.Migrations
 
                     b.HasOne("Wba.MovieRating.Domain.Entities.Movie", "Movie")
                         .WithMany("Actors")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Wba.MovieRating.Domain.Entities.MovieDirectors", b =>
-                {
-                    b.HasOne("Wba.MovieRating.Domain.Entities.Director", "Director")
-                        .WithMany("Movies")
-                        .HasForeignKey("DirectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Wba.MovieRating.Domain.Entities.Movie", "Movie")
-                        .WithMany("Directors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

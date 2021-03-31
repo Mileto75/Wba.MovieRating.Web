@@ -14,5 +14,8 @@ namespace Wba.MovieRating.Domain.Entities
         public DateTime? ReleaseDate { get; set; }
         public ICollection<MovieActors> Actors { get; set; }
         public ICollection<Rating> Ratings { get; set; }
+        public Company Company { get; set; }//nav prop 
+        public long CompanyId { get; set; }//foreign key
+        public ICollection<MovieDirectors> Directors { get; set; }
     }
 }

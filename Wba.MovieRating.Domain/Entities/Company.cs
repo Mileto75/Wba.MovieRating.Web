@@ -12,5 +12,6 @@ namespace Wba.MovieRating.Domain.Entities
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+        public ICollection<Movie> Movies { get; set; }//nav prop
     }
 }

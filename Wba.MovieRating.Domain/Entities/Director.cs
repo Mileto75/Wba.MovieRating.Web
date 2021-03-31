@@ -15,5 +15,6 @@ namespace Wba.MovieRating.Domain.Entities
         [Required]
         [MaxLength(100)]
         public string LastName { get; set; }
+        public ICollection<MovieDirectors> Movies { get; set; }
     }
 }
