@@ -81,7 +81,6 @@ namespace Wba.MovieRating.Web.Data
             modelBuilder.Entity<MovieDirectors>().HasData(movieDirectors);
             modelBuilder.Entity<MovieActors>().HasData(movieActors);
             modelBuilder.Entity<Rating>().HasData(ratings);
-            
         }
     }
 }

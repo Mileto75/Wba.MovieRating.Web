@@ -16,6 +16,7 @@ namespace Wba.MovieRating.Domain.Entities
         public ICollection<Rating> Ratings { get; set; }
         public Company Company { get; set; }//nav prop 
         public long CompanyId { get; set; }//foreign key
+        public string ImageFileName { get; set; }
         public ICollection<MovieDirectors> Directors { get; set; }
     }
 }
